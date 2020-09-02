@@ -8,6 +8,7 @@ var symbols = "!@#$%^&*()_-+=?/><`~,.";
 
 // Write password to the #password input
 function writePassword() {
+  var lengthOfString = askLengthOfPassword();
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
@@ -20,38 +21,48 @@ function generatePassword() {
   return   questionsAsked();
 }
 
+//asks for length of password
+function askLengthOfPassword() {
+  var length; 
+  while(!length) {
+  length = prompt("How long will the password be?");
+  console.log(length);
+  }
+  return length;
+}
+
 //asks the question about strings
 function questionsAsked() {
-  var sizeOfString = "";
+  var stringParts;
 
   var confirmThings = confirm("Do you want lowercase letters?");
   if(confirmThings)
   {
-    sizeOfString = lowercase;
+    stringParts = lowercase;
   }
 
 
   confirmThings = confirm("Do you want uppercase letters?");
   if(confirmThings)
   {
-    sizeOfString = sizeOfString + uppercase;
+    stringParts = stringParts + uppercase;
   }
 
 
   confirmThings = confirm("Do you want numbers?");
   if(confirmThings)
   {
-    sizeOfString = sizeOfString + numbers;
+    stringParts = stringParts + numbers;
   }
 
 
   confirmThings = confirm("Do you want special characters?");
   if(confirmThings)
   {
-    sizeOfString = sizeOfString + symbols;
+    stringParts = stringParts + symbols;
   }
 
-  return sizeOfString;
+  return stringParts;
 }
 
 // Add event listener to generate button
