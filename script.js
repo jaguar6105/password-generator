@@ -4,21 +4,30 @@ var lowercase = "abcdefghijklmnopqrstuvwxyz"
 var uppercase = lowercase.toLocaleUpperCase();
 var numbers = "1234567890";
 var symbols = "!@#$%^&*()_-+=?/><`~,.";
-
+var lengthOfString;
+var amountOfViableChar = 0;
 
 // Write password to the #password input
 function writePassword() {
-  var lengthOfString = askLengthOfPassword();
+  lengthOfString = askLengthOfPassword();
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 
 }
 
 //generates the password
 function generatePassword() {
-  return   questionsAsked();
+  var passwordArray = questionsAsked().split("")
+  var passwordText = "";
+  var key;
+  console.log(passwordArray);
+  console.log(amountOfViableChar);
+  for(var i = 0; i < lengthOfString; i++) {
+    key = Math.floor(Math.random()*amountOfViableChar)
+    passwordText = passwordText + passwordArray[key];
+  }
+  return   passwordText;
 }
 
 //asks for length of password
@@ -28,17 +37,18 @@ function askLengthOfPassword() {
   length = prompt("How long will the password be?");
   console.log(length);
   }
-  return length;
+  return parseInt(length);
 }
 
 //asks the question about strings
 function questionsAsked() {
-  var stringParts;
+  var stringParts = "";
 
   var confirmThings = confirm("Do you want lowercase letters?");
   if(confirmThings)
   {
-    stringParts = lowercase;
+    stringParts = stringParts + lowercase;
+    amountOfViableChar = amountOfViableChar + lowercase.length;
   }
 
 
@@ -46,6 +56,7 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + uppercase;
+    amountOfViableChar = amountOfViableChar + uppercase.length;
   }
 
 
@@ -53,6 +64,7 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + numbers;
+    amountOfViableChar = amountOfViableChar + numbers.length;
   }
 
 
@@ -60,6 +72,7 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + symbols;
+    amountOfViableChar = amountOfViableChar + symbols.length;
   }
 
   return stringParts;
