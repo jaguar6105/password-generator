@@ -20,53 +20,73 @@ function generatePassword() {
   var passwordArray = questionsAsked().split("")
   var passwordText = "";
   var key;
-  var amountOfViableChar = passwordArray.length-1;
-  for(var i = 0; i < lengthOfString; i++) {
-    key = Math.floor(Math.random()*amountOfViableChar);
+  var amountOfViableChar = passwordArray.length - 1;
+  for (var i = 0; i < lengthOfString; i++) {
+    key = Math.floor(Math.random() * amountOfViableChar);
     passwordText = passwordText + passwordArray[key];
   }
-  return   passwordText;
+  return passwordText;
 }
 
 //asks for length of password
 function askLengthOfPassword() {
-  var length; 
-  while(!length) {
-  length = prompt("How long will the password be?");
+  var length = 0;
+  while (!(length >= 8 && length <= 128)) {
+    length = prompt("How long will the password be?");
+    if (!(length >= 8 && length <= 128)) {
+      alert("Invalid entry!")
+    }
   }
   return parseInt(length);
 }
 
 //asks the question about strings
 function questionsAsked() {
-  var stringParts = "";
+  var stringParts;
 
-  var confirmThings = confirm("Do you want lowercase letters?");
-  if(confirmThings)
-  {
-    stringParts = stringParts + lowercase;
-  }
-
-
-  confirmThings = confirm("Do you want uppercase letters?");
-  if(confirmThings)
-  {
-    stringParts = stringParts + uppercase;
-  }
+  while (!stringParts) {
+    var confirmThings = confirm("Do you want lowercase letters?");
+    if (confirmThings) {
+      if (!stringParts) {
+        stringParts = "";
+      }
+      stringParts = stringParts + lowercase;
+    }
 
 
-  confirmThings = confirm("Do you want numbers?");
-  if(confirmThings)
-  {
-    stringParts = stringParts + numbers;
-  }
+    confirmThings = confirm("Do you want uppercase letters?");
+    if (confirmThings) {
+      if (!stringParts) {
+        stringParts = "";
+      }
+
+      stringParts = stringParts + uppercase;
+    }
 
 
-  confirmThings = confirm("Do you want special characters?");
-  if(confirmThings)
-  {
-    stringParts = stringParts + symbols;
-  }
+    confirmThings = confirm("Do you want numbers?");
+    if (confirmThings) {
+      if (!stringParts) {
+        stringParts = "";
+      }
+
+      stringParts = stringParts + numbers;
+    }
+
+
+    confirmThings = confirm("Do you want special characters?");
+    if (confirmThings) {
+      if (!stringParts) {
+        stringParts = "";
+      }
+
+      stringParts = stringParts + symbols;
+    }
+
+    if (!stringParts) {
+      alert("Invalid entry! Must selct a selection.");
+    }
+}
 
   return stringParts;
 }
