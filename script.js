@@ -3,9 +3,8 @@ var generateBtn = document.querySelector("#generate");
 var lowercase = "abcdefghijklmnopqrstuvwxyz"
 var uppercase = lowercase.toLocaleUpperCase();
 var numbers = "1234567890";
-var symbols = "!@#$%^&*()_-+=?/><`~,.";
+var symbols = "!@#$%^&*(),.";
 var lengthOfString;
-var amountOfViableChar = 0;
 
 // Write password to the #password input
 function writePassword() {
@@ -21,10 +20,9 @@ function generatePassword() {
   var passwordArray = questionsAsked().split("")
   var passwordText = "";
   var key;
-  console.log(passwordArray);
-  console.log(amountOfViableChar);
+  var amountOfViableChar = passwordArray.length-1;
   for(var i = 0; i < lengthOfString; i++) {
-    key = Math.floor(Math.random()*amountOfViableChar)
+    key = Math.floor(Math.random()*amountOfViableChar);
     passwordText = passwordText + passwordArray[key];
   }
   return   passwordText;
@@ -35,7 +33,6 @@ function askLengthOfPassword() {
   var length; 
   while(!length) {
   length = prompt("How long will the password be?");
-  console.log(length);
   }
   return parseInt(length);
 }
@@ -48,7 +45,6 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + lowercase;
-    amountOfViableChar = amountOfViableChar + lowercase.length;
   }
 
 
@@ -56,7 +52,6 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + uppercase;
-    amountOfViableChar = amountOfViableChar + uppercase.length;
   }
 
 
@@ -64,7 +59,6 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + numbers;
-    amountOfViableChar = amountOfViableChar + numbers.length;
   }
 
 
@@ -72,7 +66,6 @@ function questionsAsked() {
   if(confirmThings)
   {
     stringParts = stringParts + symbols;
-    amountOfViableChar = amountOfViableChar + symbols.length;
   }
 
   return stringParts;
